@@ -1,0 +1,23 @@
+{
+  "name": "project-hello",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index || true",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Waisal Riyan",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "typeorm": "^0.2.20"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.1"
+  }
+}
