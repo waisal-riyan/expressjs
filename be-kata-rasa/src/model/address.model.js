@@ -18,7 +18,7 @@ const AddressModel = connection.define(
       type: DataTypes.STRING,
     },
     phoneNumber: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
     },
     mobilePhoneNumber: {
       type: DataTypes.INTEGER,
@@ -41,10 +41,10 @@ const AddressModel = connection.define(
     primary: {
       type: DataTypes.TINYINT,
     },
-    // userId: {
-    //   type: DataTypes.INTEGER,
-    //   references: { model: UserModel, key: "id" },
-    // },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: { model: "Users", key: "id" },
+    },
   },
   {
     timestamps: false,

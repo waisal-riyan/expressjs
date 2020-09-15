@@ -1,9 +1,8 @@
 import connection from "../database/connection";
-import { DataTypes } from "sequelize";
-import CategoryModel from "./category.model";
+import { DataTypes, Sequelize } from "sequelize";
 
-const ProductModel = connection.define(
-  "product",
+const ProductDetailModel = connection.define(
+  "ProductDetail",
   {
     id: {
       primaryKey: true,
@@ -11,24 +10,20 @@ const ProductModel = connection.define(
       allowNull: false,
       autoIncrement: true,
     },
-    productName: {
+    productInfo: {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    price: {
+    productDesc: {
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
-    stock: {
-      type: DataTypes.DOUBLE,
+    images: {
+      type: DataTypes.TEXT,
       allowNull: false,
-    },
-    categoryId: {
-      type: DataTypes.INTEGER,
-      references: { model: CategoryModel, key: "id" },
     },
   },
-  { timestamps: false, tableName: "tbl_products", underscored: true }
+  { timestamps: false, tableName: "tbl_product_detail", underscored: true }
 );
 
-export default ProductModel;
+export default ProductDetailModel;

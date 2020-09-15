@@ -1,9 +1,9 @@
 import connection from "../database/connection";
 import { DataTypes } from "sequelize";
-import CategoryModel from "./category.model";
+import RoleModel from "./role.model";
 
 const UserModel = connection.define(
-  "tbl_user",
+  "Users",
   {
     id: {
       primaryKey: true,
@@ -29,8 +29,12 @@ const UserModel = connection.define(
     email: {
       type: DataTypes.STRING,
     },
+    roleId: {
+      type: DataTypes.INTEGER,
+      references: { model: RoleModel, key: "id" },
+    },
   },
-  { timestamps: false, tableName: "tbl_users", underscored: true }
+  { tableName: "tbl_users", underscored: true }
 );
 
 export default UserModel;
