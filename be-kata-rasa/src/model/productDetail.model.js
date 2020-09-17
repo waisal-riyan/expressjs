@@ -11,11 +11,11 @@ const ProductDetailModel = connection.define(
       autoIncrement: true,
     },
     productInfo: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     productDesc: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     images: {

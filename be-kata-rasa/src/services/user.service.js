@@ -38,7 +38,7 @@ class UserService {
         gender: gender,
         password: password,
         email: email,
-        roleId: roleId,
+        RoleId: roleId,
       });
     } else {
       return {};

@@ -12,10 +12,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "dropbox": "^5.2.1",
+    "dropbox-v2-api": "^2.4.26",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "googleapis": "^39.2.0",
+    "isomorphic-fetch": "^2.2.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
+    "node-fetch": "^2.6.1",
     "sequelize": "^6.3.4"
   },
   "devDependencies": {

@@ -1,6 +1,5 @@
 import connection from "../database/connection";
 import { DataTypes } from "sequelize";
-import RoleModel from "./role.model";
 
 const UserModel = connection.define(
   "Users",
@@ -13,25 +12,28 @@ const UserModel = connection.define(
     },
     fullName: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     phoneNumber: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     birthDate: {
       type: DataTypes.DATE,
+      allowNull: false,
     },
     gender: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     password: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-    },
-    roleId: {
-      type: DataTypes.INTEGER,
-      references: { model: RoleModel, key: "id" },
+      allowNull: false,
+      unique: true,
     },
   },
   { tableName: "tbl_users", underscored: true }

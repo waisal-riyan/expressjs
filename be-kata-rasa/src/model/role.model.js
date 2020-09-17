@@ -12,9 +12,11 @@ const RoleModel = connection.define(
     },
     roleCode: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    nameRole: {
+    roleName: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   { timestamps: false, tableName: "tbl_role", underscored: true }

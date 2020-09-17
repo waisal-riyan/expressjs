@@ -1,5 +1,6 @@
 import ProductModel from "../model/product.model";
 import CategoryModel from "../model/category.model";
+import ProductDetailModel from "../model/productDetail.model";
 
 class ProductRepository {
   productRepository() {
@@ -18,7 +19,9 @@ class ProductRepository {
   }
 
   async findAll() {
-    return await this.productRepository().findAll({ include: [CategoryModel] });
+    return await this.productRepository().findAll({
+      include: [CategoryModel, ProductDetailModel],
+    });
   }
 
   async findByName(productName) {

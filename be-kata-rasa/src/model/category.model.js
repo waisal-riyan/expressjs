@@ -12,6 +12,7 @@ const CategoryModel = connection.define(
     },
     name: {
       type: DataTypes.STRING(100),
+      allowNull: false,
     },
   },
   { timestamps: false, tableName: "tbl_categories", underscored: true }

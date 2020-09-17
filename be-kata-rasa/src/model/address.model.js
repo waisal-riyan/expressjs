@@ -1,7 +1,5 @@
 import connection from "../database/connection";
 import { DataTypes } from "sequelize";
-import UserModel from "./user.model";
-
 const AddressModel = connection.define(
   "Address",
   {
@@ -13,37 +11,43 @@ const AddressModel = connection.define(
     },
     addressAs: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     receiverName: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     phoneNumber: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     mobilePhoneNumber: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     province: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     districtCity: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     subDistrict: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     postalCode: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     completeAddress: {
       type: DataTypes.TEXT,
+      allowNull: false,
     },
     primary: {
       type: DataTypes.TINYINT,
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      references: { model: "Users", key: "id" },
+      allowNull: false,
     },
   },
   {

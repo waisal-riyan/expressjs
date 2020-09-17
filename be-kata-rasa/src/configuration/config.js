@@ -15,8 +15,12 @@ export default async function configure() {
   RoleModel.hasOne(UserModel);
   UserModel.belongsTo(RoleModel);
   /* produk */
-  CategoryModel.hasOne(ProductModel);
-  ProductDetailModel.hasOne(ProductModel);
+  // CategoryModel.hasOne(ProductModel);
+  ProductModel.belongsTo(CategoryModel);
+  // ProductDetailModel.hasOne(ProductModel);
+  ProductModel.belongsTo(ProductDetailModel);
+  // RoleModel.create({ roleCode: "ADM", roleName: "admin" });
+  // RoleModel.create({ roleCode: "CSM", roleName: "customer" });
   // await connection.sync({ force: true });
   if (!process.env.APP_NAME) {
     console.error(`Environment file (.env) cannot be found in the root folder`);

@@ -1,7 +1,5 @@
 import connection from "../database/connection";
 import { DataTypes } from "sequelize";
-import CategoryModel from "./category.model";
-import ProductDetailModel from "./productDetail.model";
 
 const ProductModel = connection.define(
   "product",
@@ -23,17 +21,6 @@ const ProductModel = connection.define(
     stock: {
       type: DataTypes.DOUBLE,
       allowNull: false,
-    },
-    categoryId: {
-      type: DataTypes.INTEGER,
-      references: { model: CategoryModel, key: "id" },
-    },
-    productDetail: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: ProductDetailModel,
-        key: "id",
-      },
     },
   },
   { timestamps: false, tableName: "tbl_products", underscored: true }
