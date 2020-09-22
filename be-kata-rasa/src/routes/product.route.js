@@ -1,5 +1,6 @@
 import { Router } from "express";
 import ProductService from "../services/product.service";
+import base64 from "base-64";
 const productService = new ProductService();
 const ProductRoute = Router()
   .get("/", async (req, res) => {
@@ -9,26 +10,29 @@ const ProductRoute = Router()
     } else {
       res.json({
         data: await productService.findPaginate(limit, offset, orderBy, value),
-        length: await await productService.countProducts(),
+        length: await productService.countProducts(),
       });
     }
   })
+  .post("/upload", async (req, res) => {
+    try {
+      let respon = await productService.uploadImage(req.files.image);
+      res.json(respon);
+    } catch (error) {
+      res.status(401).json(error);
+    }
+  })
+  .post("/preview", async (req, res) => {
+    let preview = await productService.getPreview(req.body.name);
+    res.status(200).json(preview);
+  })
   .post("/", async (req, res) => {
-    console.log("req", req.files);
-    let data = "";
-
-    // let respon = await productService.uploadImage(
-    //   req._readableState.buffer.tail.data
-    // );
-    //   data = chunk;
-    // });
-    // console.log("respon", respon);
-    // req.on("end", function () {
-    //   console.log(data);
-    // });
-    // const resUpload = await productService.uploadImage(req.rawBody);
-    // console.log("resUpload", resUpload);
-    res.json("respon");
+    try {
+      const respon = await productService.create(req.body);
+      res.json(respon);
+    } catch (error) {
+      res.status(401).json(error);
+    }
   })
   .get("/:productName", async (req, res) => {
     const { productName } = req.params;

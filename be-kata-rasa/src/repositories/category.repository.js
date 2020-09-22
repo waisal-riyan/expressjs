@@ -1,4 +1,3 @@
-import ProductModel from "../model/product.model";
 import CategoryModel from "../model/category.model";
 
 class CategoryRepository {
@@ -25,8 +24,14 @@ class CategoryRepository {
       where: { id: categoryId },
     });
   }
-  async create(product) {
-    return await this.categoryRepository().create(product);
+  async create(category) {
+    return await this.categoryRepository().create(category);
+  }
+
+  async update(category, id) {
+    return await this.categoryRepository().update(category, {
+      where: { id: id },
+    });
   }
 }
 

@@ -4,14 +4,22 @@ import connection from "./database/connection";
 import AppRoutes from "./routes";
 import AppMiddleware from "./middlewares/app-middleware";
 import bodyParser from "body-parser";
-import {} from 'express-fileupload'
+import fileUpload from "express-fileupload";
+import cors from "cors";
 
 try {
   const app = express();
   configure();
   connection.authenticate();
   console.log("Connection has been established successfully.");
+  app.use(
+    fileUpload({
+      createParentPath: false,
+    })
+  );
+  app.use(cors());
   app.use(AppMiddleware);
+
   // app.use(express);
   // app.use(function (req, res, next) {
   //   var data = new Buffer("");
