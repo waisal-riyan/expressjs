@@ -23,6 +23,21 @@ class ProductRepository {
       include: [CategoryModel, ProductDetailModel],
     });
   }
+  async findById(id) {
+    return await this.productRepository().findOne({
+      where: { id: id },
+      include: [CategoryModel, ProductDetailModel],
+    });
+  }
+
+  async findByCategoryId(id) {
+    return await this.productRepository().findAll({
+      where: {
+        categoryId: id,
+      },
+      include: [CategoryModel, ProductDetailModel],
+    });
+  }
 
   async findByName(productName) {
     return await this.productRepository().findOne({

@@ -79,6 +79,10 @@ class ProductService {
     return link;
   }
 
+  async getProductByCategory(id) {
+    return await this.productService().findByCategoryId(id);
+  }
+
   async countProducts() {
     return await this.productService().count();
   }
@@ -115,6 +119,9 @@ class ProductService {
 
   async getProductByName(productName) {
     return await this.productService().findByName(productName);
+  }
+  async getProductById(id) {
+    return await this.productService().findById(id);
   }
 }
 

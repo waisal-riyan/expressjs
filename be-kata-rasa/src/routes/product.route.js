@@ -3,21 +3,50 @@ import ProductService from "../services/product.service";
 import base64 from "base-64";
 const productService = new ProductService();
 const ProductRoute = Router()
-  .get("/", async (req, res) => {
-    const { limit, offset, orderBy, value } = req.query;
-    if (limit === undefined && offset === undefined) {
-      res.json(await productService.getListProduct());
+  .get("/", async (req, res, next) => {
+    const { limit, offset, orderBy, value, categoryId } = req.query;
+    if (categoryId !== undefined) {
+      next();
     } else {
-      res.json({
-        data: await productService.findPaginate(limit, offset, orderBy, value),
-        length: await productService.countProducts(),
+      if (limit === undefined && offset === undefined) {
+        res.json(await productService.getListProduct());
+      } else {
+        res.json({
+          data: await productService.findPaginate(
+            limit,
+            offset,
+            orderBy,
+            value
+          ),
+          length: await productService.countProducts(),
+        });
+      }
+    }
+  })
+  .get("/", async (req, res) => {
+    try {
+      const { categoryId } = req.query;
+      let response = await productService.getProductByCategory(categoryId);
+
+      response.map(({ dataValues }) => {
+        // console.log(
+        //   " dataValues.ProductDetail.dataValues.images",
+        //   dataValues.ProductDetail.dataValues.images
+        // );
+
+        dataValues.ProductDetail.dataValues.images = base64
+          .decode(dataValues.ProductDetail.dataValues.images)
+          .split(",");
       });
+      res.json(response);
+    } catch (error) {
+      res.status(401).json(error);
     }
   })
   .post("/upload", async (req, res) => {
     try {
       let respon = await productService.uploadImage(req.files.image);
-      res.json(respon);
+      res.send(respon);
     } catch (error) {
       res.status(401).json(error);
     }
@@ -34,8 +63,32 @@ const ProductRoute = Router()
       res.status(401).json(error);
     }
   })
-  .get("/:productName", async (req, res) => {
-    const { productName } = req.params;
-    res.json(await productService.getProductByName(productName));
+  .get("/:param", async (req, res, next) => {
+    try {
+      const { param } = req.params;
+      let result = {};
+      // console.log(Number(param));
+      if (Number(param)) {
+        // result.item = "add";
+        // result.class = "sdasd";
+        result = await (await productService.getProductById(param)).toJSON();
+        // result.ProductDetail.images = base64
+        //   .decode(result.ProductDetail.images)
+        //   .split(",")
+        //   .map((item) => {
+        //     return { item };
+        //   });
+        result.tes = result.ProductDetail;
+        result.tes.images = base64
+          .decode(result.ProductDetail.images)
+          .split(",");
+        // console.log("result", result.dataValues);
+      } else {
+        result = await productService.getProductByName(param);
+      }
+      res.json(result);
+    } catch (error) {
+      res.status(401).json(error);
+    }
   });
 export default ProductRoute;
