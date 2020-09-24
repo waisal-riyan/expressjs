@@ -52,6 +52,7 @@ const ProductRoute = Router()
     }
   })
   .post("/preview", async (req, res) => {
+    console.log("req.body.name", req.body.name);
     let preview = await productService.getPreview(req.body.name);
     res.status(200).json(preview);
   })
@@ -66,23 +67,12 @@ const ProductRoute = Router()
   .get("/:param", async (req, res, next) => {
     try {
       const { param } = req.params;
-      let result = {};
-      // console.log(Number(param));
+      let result;
       if (Number(param)) {
-        // result.item = "add";
-        // result.class = "sdasd";
         result = await (await productService.getProductById(param)).toJSON();
-        // result.ProductDetail.images = base64
-        //   .decode(result.ProductDetail.images)
-        //   .split(",")
-        //   .map((item) => {
-        //     return { item };
-        //   });
-        result.tes = result.ProductDetail;
-        result.tes.images = base64
+        result.ProductDetail.images = base64
           .decode(result.ProductDetail.images)
           .split(",");
-        // console.log("result", result.dataValues);
       } else {
         result = await productService.getProductByName(param);
       }

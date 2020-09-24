@@ -47,22 +47,20 @@ class ProductService {
               .then((res) => res)
         )
       );
-
-      respon = await Promise.all(
-        imgs.map(async (img) => await this.getPreview(img.name))
-      );
+      respon = image.map((img) => img.name);
     }
 
     return base64.encode(respon);
   }
 
   async getPreview(name) {
+    console.log("ProductService -> getPreview -> name", name);
     let link = "";
     var requestOptions = {
       method: "POST",
       headers: {
         Authorization:
-          "Bearer 2Pn7QhimQ1AAAAAAAAAAAcJY7Bh5fsG3Qi3YsumAgg0hympo42GJxgKMw0-NXCMu",
+          "Bearer _T40tcHGumMAAAAAAAAAAc2kSk9L-MBOaNIPptKZnfXkO0-rT2JEFckZWZSZTuyC",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ path: `/kata-rasa/${name}` }),
@@ -76,7 +74,10 @@ class ProductService {
       .then((response) => response.json())
       .then((result) => (link = result.link))
       .catch((error) => console.log("error", error));
-    return link;
+    console.log("ProductService -> getPreview ->  { link: link }", {
+      link: link,
+    });
+    return { link: link };
   }
 
   async getProductByCategory(id) {
